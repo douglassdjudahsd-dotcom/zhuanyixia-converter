@@ -24,6 +24,20 @@ jobs:
       - run: npm run build
       - run: node --check dist/sw.js
       - run: npm run release
+      - name: Publish a prepared version
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          TAG="v$(node -p "require('./package.json').version")"
+          NOTES="release-notes/$TAG.md"
+          if [ -f "$NOTES" ] && ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" release/* --target "$COMMIT_SHA" --title "转一下 $TAG · 安卓 APK、微信文件、Word 转 PDF" --notes-file "$NOTES"
+            if [ "$TAG" = "v1.1.1" ]; then
+              gh release edit v1.1.0 --prerelease --notes-file release-notes/v1.1.0.md
+            fi
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: zhuanyixia-web
