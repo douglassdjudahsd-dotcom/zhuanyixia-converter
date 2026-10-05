@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application>
+    <uses-library android:name="android.test.runner" android:required="true" />
+    <uses-library android:name="android.test.base" android:required="true" />
+    <provider android:name="io.github.douglassdjudahsd.zhuanyixia.FixtureProvider" android:authorities="io.github.douglassdjudahsd.zhuanyixia.test.files" android:exported="true" android:grantUriPermissions="true" />
+  </application>
+</manifest>

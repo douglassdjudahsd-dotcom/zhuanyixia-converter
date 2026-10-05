@@ -10,3 +10,5 @@
 - OCR 模型源：https://github.com/tesseract-ocr/tessdata_fast ，`eng.traineddata` 和 `chi_sim.traineddata`，作为 gzip 静态资源分发。
 
 这些第三方组件及模型由其各自作者持有版权。本应用未调用知网的账号或付费转换服务。
+
+- html2canvas、css-line-break、text-segmentation、utrie、base64-arraybuffer：MIT；用于 DOCX 内容重排与 PDF 页面绘制，许可证随安装包提供。

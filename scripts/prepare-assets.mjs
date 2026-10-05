@@ -18,7 +18,7 @@ for(const [name,hash] of Object.entries(hashes)){
 }
 cpSync('licenses','public/licenses',{recursive:true});
 for(const name of ['LICENSE','THIRD_PARTY.md'])copyFileSync(name,path.join('public/licenses',name));
-for(const component of ['docx','pdfjs-dist','pdf-lib','fflate','mammoth','dompurify','tesseract.js','tesseract.js-core','xlsx']){
+for(const component of ['docx','pdfjs-dist','pdf-lib','fflate','mammoth','dompurify','tesseract.js','tesseract.js-core','xlsx','html2canvas','css-line-break','text-segmentation','utrie','base64-arraybuffer']){
  const folder=path.join('node_modules',component);
  for(const name of ['LICENSE','LICENSE.txt','LICENSE.md','LICENSE_APACHE','LICENSE_MPL'])if(existsSync(path.join(folder,name)))copyFileSync(path.join(folder,name),path.join('public/licenses',component+'-'+name));
 }

@@ -8,3 +8,11 @@ release/
 public/pdf/
 public/ocr/
 public/licenses/
+android/.gradle/
+android/**/build/
+android/app/src/main/assets/www/
+android/local.properties
+*.jks
+*.keystore
+*.apk
+*.apk.idsig
