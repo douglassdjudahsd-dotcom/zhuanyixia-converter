@@ -1,4 +1,6 @@
 # 转一下 · 开源文件转换
+
+[在线使用手机版](https://douglassdjudahsd-dotcom.github.io/zhuanyixia-converter/) · [下载成品包](https://github.com/douglassdjudahsd-dotcom/zhuanyixia-converter/releases/latest)
 支持安卓、iPhone 和电脑的浏览器本地转换工具。MIT 开源，文件在设备内处理，不上传转换服务器，无转换 API 密钥或收费服务。
 
 ## 普通用户
