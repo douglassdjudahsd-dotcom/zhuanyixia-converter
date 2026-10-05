@@ -16,6 +16,19 @@ public class ReceiveFileTest extends InstrumentationTestCase {
   }
   public void testWechatViewImportAndConversion() throws Exception { testReceive(Intent.ACTION_VIEW); }
   public void testWechatShareImportAndConversion() throws Exception { testReceive(Intent.ACTION_SEND); }
+  public void testPdfWorkerOffline() throws Exception {testPdf("sample.pdf");}
+  public void testScannedPdfOcrOffline() throws Exception {testPdf("scan.pdf");}
+  private void testPdf(String name) throws Exception {
+    Intent intent=new Intent(getInstrumentation().getTargetContext(),MainActivity.class).setAction(Intent.ACTION_VIEW).setDataAndType(Uri.parse("content://io.github.douglassdjudahsd.zhuanyixia.test.files/"+name),"application/pdf").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    activity=(MainActivity)getInstrumentation().startActivitySync(intent);
+    long end=System.currentTimeMillis()+90000;
+    while(System.currentTimeMillis()<end&&!js("document.querySelector('#queue')?.textContent.includes('"+name+"')||false").equals("true"))Thread.sleep(500);
+    assertEquals("PDF enters queue","true",js("document.querySelector('#queue').textContent.includes('"+name+"')"));
+    js("document.querySelector('#convert').click();true");
+    end=System.currentTimeMillis()+180000;
+    while(System.currentTimeMillis()<end&&!js("!!document.querySelector('[data-native-save]')||!!document.querySelector('.result.failed')").equals("true"))Thread.sleep(500);
+    assertEquals("PDF/OCR result; status="+js("document.querySelector('#results').textContent+' '+document.querySelector('#job-status').textContent"),"true",js("!!document.querySelector('[data-native-save]')&&document.querySelector('#results').textContent.includes('.docx')"));
+  }
   private void testReceive(String action) throws Exception {
     Intent intent=new Intent(getInstrumentation().getTargetContext(),MainActivity.class).setAction(action).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
     Uri uri=Uri.parse("content://io.github.douglassdjudahsd.zhuanyixia.test.files/sample.docx");
