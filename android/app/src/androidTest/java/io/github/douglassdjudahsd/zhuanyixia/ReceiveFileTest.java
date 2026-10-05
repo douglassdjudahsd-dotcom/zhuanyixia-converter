@@ -31,12 +31,15 @@ public class ReceiveFileTest extends InstrumentationTestCase {
     assertEquals("PDF conversion and native save button", "true", js("!!document.querySelector('[data-native-save]')&&document.querySelector('#results').textContent.includes('微信样例.pdf')"));
     assertEquals("PDF content nonempty", "true",js("document.querySelector('#results').textContent.includes('基本段落')"));
     Uri output=Uri.parse("content://io.github.douglassdjudahsd.zhuanyixia.test.files/result.pdf");
-    android.app.Instrumentation.ActivityMonitor save=getInstrumentation().addMonitor(new android.content.IntentFilter(Intent.ACTION_CREATE_DOCUMENT),new android.app.Instrumentation.ActivityResult(Activity.RESULT_OK,new Intent().setData(output)),true);
+    android.content.IntentFilter saveFilter=new android.content.IntentFilter(Intent.ACTION_CREATE_DOCUMENT);
+    saveFilter.addCategory(Intent.CATEGORY_OPENABLE);
+    saveFilter.addDataType("application/pdf");
+    android.app.Instrumentation.ActivityMonitor save=getInstrumentation().addMonitor(saveFilter,new android.app.Instrumentation.ActivityResult(Activity.RESULT_OK,new Intent().setData(output)),true);
     js("document.querySelector('[data-native-save]').click();true");
     end=System.currentTimeMillis()+30000;
     while(System.currentTimeMillis()<end&&!js("document.querySelector('#job-status').textContent.includes('文件已保存')").equals("true"))Thread.sleep(500);
     getInstrumentation().removeMonitor(save);
-    assertEquals("Native result persisted", "true",js("document.querySelector('#job-status').textContent.includes('文件已保存')"));
+    assertEquals("Native result persisted; status="+js("document.querySelector('#job-status').textContent"), "true",js("document.querySelector('#job-status').textContent.includes('文件已保存')"));
     try(java.io.InputStream input=getInstrumentation().getContext().getContentResolver().openInputStream(output)){
       byte[] header=new byte[5];assertEquals(5,input.read(header));assertEquals("%PDF-",new String(header,java.nio.charset.StandardCharsets.US_ASCII));
     }
