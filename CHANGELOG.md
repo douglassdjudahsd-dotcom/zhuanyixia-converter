@@ -1,6 +1,7 @@
 # 更新记录
 
 ## 1.1.1
+- 适配 Android 打包器自动解压 OCR .gz 资源后的模型路径。
 - 使用 PDF.js 兼容构建，补齐 Android WebView 需要的新 JavaScript API。
 - 修正手机版下拉工具的默认选项。
 - 增加离线 PDF 和扫描 PDF OCR 的安卓运行测试。
