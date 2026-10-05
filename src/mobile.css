@@ -1,0 +1,2 @@
+.mobile-tool{display:none}
+@media(max-width:760px){.convert-pane{order:0}.tool-pane{order:1}.intro{margin-bottom:22px}.mobile-tool{display:block;font-size:14px;color:#465675;margin-bottom:20px}.mobile-tool select{display:block;font-size:16px;width:100%;background:#f8faff;border:1px solid #dce3ef;border-radius:9px;padding:10px;min-height:46px;margin-top:8px}.options select{font-size:16px}.tool-pane{padding-top:15px}.intro .local-label{margin-top:13px}.intro h1{font-size:23px}}

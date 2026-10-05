@@ -1,0 +1,10 @@
+node_modules/
+.sites-runtime/
+.env*
+!.env.example
+dist/
+test-results/
+release/
+public/pdf/
+public/ocr/
+public/licenses/

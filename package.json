@@ -1,0 +1,31 @@
+{
+  "name": "zhuanyixia-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/prepare-assets.mjs && vite build && node scripts/make-sw.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "release": "node scripts/package-release.mjs"
+  },
+  "dependencies": {
+    "docx": "^9.5.1",
+    "pdfjs-dist": "^5.4.149",
+    "pdf-lib": "^1.17.1",
+    "fflate": "^0.8.2",
+    "mammoth": "^1.11.0",
+    "dompurify": "^3.3.0",
+    "tesseract.js": "^6.0.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
+  },
+  "license": "MIT",
+  "description": "Local file converter for Android, iPhone and desktop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/douglassdjudahsd-dotcom/zhuanyixia-converter.git"
+  }
+}
