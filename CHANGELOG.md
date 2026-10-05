@@ -1,5 +1,10 @@
 # 更新记录
 
+## 1.1.1
+- 使用 PDF.js 兼容构建，补齐 Android WebView 需要的新 JavaScript API。
+- 修正手机版下拉工具的默认选项。
+- 增加离线 PDF 和扫描 PDF OCR 的安卓运行测试。
+
 ## 1.1.0
 - 增加 Android 8+ 安装包：内置转换引擎和中英文 OCR，可离线使用。
 - 增加微信“用其他应用打开”与分享接收：自动识别 PDF、CAJ/KDH/NH/HN、DOCX、图片、文字和表格。

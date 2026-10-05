@@ -4,13 +4,13 @@
 支持安卓、iPhone 和电脑的浏览器本地转换工具。MIT 开源，文件在设备内处理，不上传转换服务器，无转换 API 密钥或收费服务。
 
 ## 普通用户
-安卓可以在 [Releases](https://github.com/douglassdjudahsd-dotcom/zhuanyixia-converter/releases/latest) 下载 `zhuanyixia-v1.1.0-android.apk` 直接安装，支持 Android 8.0 及以上。应用内置程序和中英文 OCR 模型，可离线转换；请保持 Android System WebView 为较新版本。iPhone 使用下面的通用手机版。
+安卓可以在 [Releases](https://github.com/douglassdjudahsd-dotcom/zhuanyixia-converter/releases/latest) 下载 `zhuanyixia-v1.1.1-android.apk` 直接安装，支持 Android 8.0 及以上。应用内置程序和中英文 OCR 模型，可离线转换；PDF 功能需要 Android System WebView 125+，请保持系统 WebView 更新。iPhone 使用下面的通用手机版。
 
 **微信文件：**在聊天中打开文件，点右上角菜单，选择“用其他应用打开”或“分享”，再选“转一下”。入口名称和可用性随微信版本变化；也可先保存到手机，再在应用里选择文件。应用自动识别收到文件的扩展名/MIME 并选择合适工具，不读取微信聊天数据库。一次同类文件最多 5 个，不同类型请分批处理。转换完成后点“保存文件”选择系统文件夹。
 
 手机打开公开手机版，选择工具和文件，转换后下载或通过系统分享菜单保存。iPhone 用 Safari 的“分享 → 添加到主屏幕”；安卓用 Chrome 菜单“安装应用 / 添加到主屏幕”。
 
-在 GitHub 的 **Releases** 下载 `zhuanyixia-v1.1.0-web.zip`，这是包含 OCR 模型、程序和第三方许可证的成品包。解压后：
+在 GitHub 的 **Releases** 下载 `zhuanyixia-v1.1.1-web.zip`，这是包含 OCR 模型、程序和第三方许可证的成品包。解压后：
 - Windows：安装 [Node.js 20.19+](https://nodejs.org/)，双击 `start-windows.cmd`。
 - macOS / Linux：安装 Node.js，运行 `node server.mjs`，打开 `http://127.0.0.1:8787/`。
 - 自己部署：把包中的 `dist/` 放到 HTTPS 静态网站服务器。支持放在子目录，如 GitHub Pages。

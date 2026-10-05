@@ -105,6 +105,10 @@ public class MainActivity extends Activity {
             }
         });
         web.setWebChromeClient(new WebChromeClient() {
+            @Override public boolean onConsoleMessage(android.webkit.ConsoleMessage message) {
+                if (BuildConfig.DEBUG) android.util.Log.d("Zhuanyixia", message.message() + " @ " + message.sourceId() + ":" + message.lineNumber());
+                return true;
+            }
             @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback, FileChooserParams params) {
                 if (chooser != null) chooser.onReceiveValue(null);
                 chooser = callback;

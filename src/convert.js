@@ -1,5 +1,5 @@
 import './polyfills.js';
-import * as pdfjs from 'pdfjs-dist';
+import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { PDFDocument } from 'pdf-lib';
 import { Document, Paragraph, TextRun, ImageRun, Packer } from 'docx';
 import { zipSync, strToU8 } from 'fflate';
@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 import mammoth from 'mammoth/mammoth.browser';
 import DOMPurify from 'dompurify';
 import { readCaj } from './caj.js';
-import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import workerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 pdfjs.GlobalWorkerOptions.workerSrc=workerUrl;
 const assetUrl=name=>new URL('../'+name,import.meta.url).href;
@@ -29,7 +29,7 @@ async function docxFromPages(pages,{images=false}={}){
 function extractLines(items){const rows=[];for(const t of items){if(!('str'in t)||!t.str)continue;const y=t.transform[5];let row=rows.find(r=>Math.abs(r.y-y)<Math.max(2,Math.abs(t.transform[3])*.18));if(!row){row={y,items:[]};rows.push(row);}row.items.push(t);}return rows.sort((a,b)=>b.y-a.y).map(r=>{let s='',end=null;for(const t of r.items.sort((a,b)=>a.transform[4]-b.transform[4])){if(end!==null&&t.transform[4]-end>Math.max(2,Math.abs(t.transform[3])*.3))s+=' ';s+=t.str;end=t.transform[4]+t.width;}return s;}).join('\n');}
 async function canvasBytes(canvas,type='png'){return new Uint8Array(await (await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('图片无法导出。')),MIME[type],.9))).arrayBuffer());}
 async function renderPage(page,width=1500){const v=page.getViewport({scale:1});const viewport=page.getViewport({scale:Math.min(width/v.width,2.5)});const canvas=document.createElement('canvas');canvas.width=Math.round(viewport.width);canvas.height=Math.round(viewport.height);await page.render({canvas,canvasContext:canvas.getContext('2d'),viewport,background:'white'}).promise;return canvas;}
-async function openPdf(data){try{const pdf=await pdfjs.getDocument({data,cMapUrl:assetUrl('pdf/cmaps/'),cMapPacked:true,standardFontDataUrl:assetUrl('pdf/standard_fonts/'),wasmUrl:assetUrl('pdf/wasm/'),enableScripting:false,isEvalSupported:false}).promise;if(pdf.numPages>80){await pdf.loadingTask.destroy();throw new Error('当前手机版支持最多80页，请先拆分文档。');}return pdf;}catch(e){if(e.name==='PasswordException')throw new Error('PDF 已加密，请先移除密码后再转换。');throw new Error(e.message?.includes('80页')?e.message:'文件无法作为 PDF 读取，请确认文件完整。');}}
+async function openPdf(data){try{const pdf=await pdfjs.getDocument({data,cMapUrl:assetUrl('pdf/cmaps/'),cMapPacked:true,standardFontDataUrl:assetUrl('pdf/standard_fonts/'),wasmUrl:assetUrl('pdf/wasm/'),enableScripting:false,isEvalSupported:false}).promise;if(pdf.numPages>80){await pdf.loadingTask.destroy();throw new Error('当前手机版支持最多80页，请先拆分文档。');}return pdf;}catch(e){console.error('PDF load failed',e);if(e.name==='PasswordException')throw new Error('PDF 已加密，请先移除密码后再转换。');throw new Error(e.message?.includes('80页')?e.message:'文件无法作为 PDF 读取，请确认文件完整。');}}
 async function convertPdf(data,fileName,options,progress){
   if(options.target==='pdf'){const doc=await PDFDocument.load(data);if(doc.getPageCount()>80)throw new Error('当前手机版支持最多80页。');return[result(fileName,'pdf',await doc.save())];}
   const pdf=await openPdf(data),pages=[],output={};let total=0,recognized=0,visualFallback=0;
